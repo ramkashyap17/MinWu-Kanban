@@ -19,7 +19,7 @@ app.set("view options", {layout: false});
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connection
 	.on('error', function(err) {console.log(err.message)})
