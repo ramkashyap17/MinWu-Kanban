@@ -1,7 +1,7 @@
 var Card = require('../models/kanban.card.model');
 
-var list = function(req, res) {
-	var by = req.query.by;
+var list = function(req, res) {	
+	var by = req.query.by;	
 	Card.find({}, by, function(err, cards) {
 		if (err) {
 			res.status(400).json({error: err.message});

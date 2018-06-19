@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var path = require('path');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -12,7 +13,13 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use('/api', require('./app/dispatcher'));
+app.use('/', require('./app/dispatcher'));
+
+app.set("view options", {layout: false});
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
+
+// app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connection
 	.on('error', function(err) {console.log(err.message)})
@@ -20,12 +27,14 @@ mongoose.connection
 		console.log('Mongoose connnection to DB has been disconnected');
 	})
 	.on('connected', function() {
-		app.listen(process.env.PORT, process.env.IP);
+		console.log('Connected to mongo')
+		app.listen(4000, process.env.IP);
 	});
 
 var closeDBConnection = function() {
 	mongoose.connection.close(function() { process.exit(0); });
 };
+
 process.on('SIGINT', closeDBConnection).on('SIGTERM', closeDBConnection);
 
 mongoose.connect(require('./config/db').connectString);
