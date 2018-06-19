@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "5b24b285bf6bf509b39c83b8",
+    "status": "todo",
+    "description": "Implement low-fidelity prototype for user study",
+    "title": "Prototype",
+    "__v": 0,
+    "tasks": []
+  },
+  {
+    "_id": "5b24b2cabf6bf509b39c83ba",
+    "status": "todo",
+    "description": "Completely test the application",
+    "title": "QA",
+    "__v": 0,
+    "tasks": []
+  },
+  {
+    "_id": "5b24b180bf6bf509b39c83b3",
+    "status": "done",
+    "description": "Interview at least two customers",
+    "title": "Interview Customers",
+    "__v": 2,
+    "tasks": [
+      {
+        "name": "Customer 1",
+        "done": true,
+        "_id": "5b24b332bf6bf509b39c83bb"
+      },
+      {
+        "name": "Bank 2",
+        "done": true,
+        "_id": "5b24b343bf6bf509b39c83bc"
+      }
+    ]
+  },
+  {
+    "_id": "5b24b1e1bf6bf509b39c83b4",
+    "status": "done",
+    "description": "Generate PRD (product requirements document)",
+    "title": "Contextual Inquiry",
+    "__v": 2,
+    "tasks": [
+      {
+        "name": "Collect customer requirements",
+        "done": true,
+        "_id": "5b24b3debf6bf509b39c83bd"
+      },
+      {
+        "name": "Consult with PMs",
+        "done": true,
+        "_id": "5b24b3e8bf6bf509b39c83be"
+      }
+    ]
+  },
+  {
+    "_id": "5b24b20cbf6bf509b39c83b5",
+    "status": "in-progress",
+    "description": "Design high-fidelity user interface",
+    "title": "Design the UI",
+    "__v": 2,
+    "tasks": [
+      {
+        "name": "User flow",
+        "done": true,
+        "_id": "5b24b452bf6bf509b39c83bf"
+      },
+      {
+        "name": "User interaction",
+        "done": true,
+        "_id": "5b24b45bbf6bf509b39c83c0"
+      }
+    ]
+  },
+  {
+    "_id": "5b24b242bf6bf509b39c83b6",
+    "status": "in-progress",
+    "description": "Choose appropriate text and color",
+    "title": "Graphic Design",
+    "__v": 2,
+    "tasks": [
+      {
+        "name": "Color scheme",
+        "done": false,
+        "_id": "5b24b4a9bf6bf509b39c83c1"
+      },
+      {
+        "name": "Typography",
+        "done": false,
+        "_id": "5b24b4b3bf6bf509b39c83c2"
+      }
+    ]
+  },
+  {
+    "_id": "5b24b266bf6bf509b39c83b7",
+    "status": "in-progress",
+    "description": "High-level design of the backend implementation",
+    "title": "Design the Backend",
+    "__v": 2,
+    "tasks": [
+      {
+        "name": "Cloud-based platform",
+        "done": false,
+        "_id": "5b24b4dcbf6bf509b39c83c3"
+      },
+      {
+        "name": "Database schema",
+        "done": false,
+        "_id": "5b24b4e6bf6bf509b39c83c4"
+      }
+    ]
+  },
+  {
+    "_id": "5b24b2bbbf6bf509b39c83b9",
+    "status": "todo",
+    "description": "Develop both the front-end and the backend",
+    "title": "Development",
+    "__v": 2,
+    "tasks": [
+      {
+        "name": "Front end dev",
+        "done": false,
+        "_id": "5b24b51abf6bf509b39c83c5"
+      },
+      {
+        "name": "Backend dev",
+        "done": false,
+        "_id": "5b24b520bf6bf509b39c83c6"
+      }
+    ]
+  }
+]
