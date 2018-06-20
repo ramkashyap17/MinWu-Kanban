@@ -32,7 +32,8 @@ class Right extends React.Component {
                 break;
         }
 
-        $('#' + localStorage.getItem('currentCardID')).addClass('homeSubmenuItemSelected')
+        if(localStorage.getItem('currentCardID') != '')
+            $('#' + localStorage.getItem('currentCardID')).addClass('homeSubmenuItemSelected')
 
         console.log('This is task count: ' + that.state.__v)        
         console.log('This is tasks: ' + JSON.stringify(that.state.tasks))
@@ -59,7 +60,7 @@ class Right extends React.Component {
 
         console.log('This is currentCardID: ' + localStorage.getItem('currentCardID'))
 
-        if(localStorage.getItem('currentCardID') != 'null'){
+        if(localStorage.getItem('currentCardID') != ''){
             _data._id = localStorage.getItem('currentCardID')
             
             _data.title = event.target.value            
@@ -109,7 +110,7 @@ class Right extends React.Component {
         var _data = {}
         var that = this;
 
-        if(localStorage.getItem('currentCardID')){
+        if(localStorage.getItem('currentCardID') != ''){
             _data._id = localStorage.getItem('currentCardID')
             _data.title = this.state.title            
             _data.status = this.state.status
@@ -137,7 +138,7 @@ class Right extends React.Component {
         var that = this;
         var _data = {}
 
-        if(localStorage.getItem('currentCardID')){
+        if(localStorage.getItem('currentCardID') != ''){
             _data._id = localStorage.getItem('currentCardID')
             
             _data.title = this.state.title            
@@ -157,13 +158,35 @@ class Right extends React.Component {
                     that.setState(data)
                     that.props.action(data)
 
-                    if(localStorage.getItem('currentCardID')){
+                    if(localStorage.getItem('currentCardID') != ''){
                         $('#' + localStorage.getItem('currentCardID')).removeClass('homeSubmenuItemSelected')                        
                     }
                 }
             });
         }                        
-    }     
+    }   
+
+    deleteCard(event){
+        var that = this;
+
+        if(localStorage.getItem('currentCardID') != ''){
+            $.ajax('http://localhost:4000/api/cards/' + localStorage.getItem('currentCardID'), {
+                type: 'delete',                
+                success: function(data) {                                                                            
+                    that.setState({           
+                        "_id": "1",
+                        "status": "todo",
+                        "description": "",
+                        "title": "",
+                        "__v": 0,
+                        "tasks": []          
+                    })                    
+                    localStorage.setItem('currentCardID', '')                    
+                    that.props.action()                                          
+                }
+            });
+        }            
+    }  
 
     render() {
         var that = this; 
@@ -175,7 +198,7 @@ class Right extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12 col-md-12 col-lg-12">
-                            <button className="btn btn-right">DELETE</button>
+                            <button onClick={this.deleteCard.bind(this)} className="btn btn-right">DELETE</button>
                         </div>
                     </div>
                     <br/>

@@ -37,8 +37,20 @@ class App extends React.Component {
 	}
 
 	refreshCardsList(data){
-        console.log('Entered refreshCardsList: ' + JSON.stringify(data))        
-		this.setState(data)
+        console.log('Entered refreshCardsList: ' + JSON.stringify(data)) 
+        if(data){
+            this.setState(data)
+        }       		
+        else{
+            this.setState({            
+                "_id": "1",
+                "status": "todo",
+                "description": "",
+                "title": "",
+                "__v": 0,
+                "tasks": []          
+            })
+        }
 	}
 
    	render() {

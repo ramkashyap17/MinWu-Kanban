@@ -15,7 +15,7 @@ class CardListItem extends React.Component{
             this.props.action(uID)
             console.log('#' + this.props.uID)
 
-            if(localStorage.getItem('currentCardID')){
+            if(localStorage.getItem('currentCardID') != ''){
                 $('#' + localStorage.getItem('currentCardID')).removeClass('homeSubmenuItemSelected')    
             }
             

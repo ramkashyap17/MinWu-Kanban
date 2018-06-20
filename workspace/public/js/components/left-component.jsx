@@ -8,10 +8,10 @@ class Left extends React.Component {
       super(props)
    }
    clearForm(){
-      if(localStorage.getItem('currentCardID')){
+      if(localStorage.getItem('currentCardID') != ''){
          $('#' + localStorage.getItem('currentCardID')).removeClass('homeSubmenuItemSelected')                        
       }      
-      localStorage.setItem('currentCardID', null)
+      localStorage.setItem('currentCardID', '')
       this.props.action(null)
    }
    render() {
