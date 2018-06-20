@@ -35,7 +35,7 @@ class TaskListItem extends React.Component{
         var _data = {taskstatus: event.target.checked}
         var that = this;
         var cID = localStorage.getItem('currentCardID')
-        if(cID){                    
+        if(cID != ''){                    
             
             $.ajax('http://localhost:4000/api/cards/'+ cID + '/tasks/' + this.state._id, {
                 type: 'put',
@@ -44,6 +44,20 @@ class TaskListItem extends React.Component{
                 contentType: 'application/json',
                 success: function(data) {                     
                     that.props.action(data)                    
+                }
+            });
+
+        }
+    }
+
+    deleteTask(event){                
+        var that = this;
+        var cID = localStorage.getItem('currentCardID');
+        if(cID != ''){                                
+            $.ajax('http://localhost:4000/api/cards/'+ cID + '/tasks/' + this.state._id, {
+                type: 'delete',                
+                success: function(data) {                                         
+                    that.props.update(cID)                    
                 }
             });
 
@@ -62,7 +76,7 @@ class TaskListItem extends React.Component{
                     <input className="input-title" type="text" placeholder="Task details" defaultValue={this.state.name}></input>
                 </div>
                 <div className="col-sm-2 col-md-2 col-lg-2">                        
-                    <button className="btn btn-round">X</button>
+                    <button onClick={this.deleteTask.bind(this)} className="btn btn-round">X</button>
                 </div>
             </div>
         )

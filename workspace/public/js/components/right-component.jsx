@@ -267,7 +267,7 @@ class Right extends React.Component {
                         </div>                        
                     </div>
                     <br/>
-                    {this.state.tasks.map((task, i) => <TaskListItem key = {'t' + i} action={this.props.action} name = {task.name} 
+                    {this.state.tasks.map((task, i) => <TaskListItem key = {'t' + i} action={this.props.action} update={this.props.update} name = {task.name} 
                      done = {task.done} tID = {task._id}/>)}
                     <br/>   
                 </div>          

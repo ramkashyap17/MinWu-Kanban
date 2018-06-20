@@ -58,7 +58,7 @@ class App extends React.Component {
          <div>
          	<h1>Kanban Board</h1>
             <Left action={this.updateSelectedUID.bind(this)}/>
-            <Right uid={this.state._id} status={this.state.status} title={this.state.title} description={this.state.description} tasks={this.state.tasks} action={this.refreshCardsList.bind(this)}/>
+            <Right uid={this.state._id} status={this.state.status} title={this.state.title} description={this.state.description} tasks={this.state.tasks} action={this.refreshCardsList.bind(this)} update={this.updateSelectedUID.bind(this)}/>
          </div>
       );
    	}
