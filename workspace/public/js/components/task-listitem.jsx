@@ -15,16 +15,39 @@ class TaskListItem extends React.Component{
     }
 
     componentDidMount () {
-        this.setValue(this)
+        
     }
 
     componentDidUpdate () {
-        this.setValue(this)
+        
     }
 
-    setValue(that){
-        console.log('Entered here: ' + that.state._id)
-        $('#task' + that.state._id).val(that.state.name)
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            name: nextProps.name,
+            _id: nextProps.tID,
+            done: nextProps.done
+        });        
+    }
+
+    handleTaskStatusChange(event){
+        event.persist()
+        var _data = {taskstatus: event.target.checked}
+        var that = this;
+        var cID = localStorage.getItem('currentCardID')
+        if(cID){                    
+            
+            $.ajax('http://localhost:4000/api/cards/'+ cID + '/tasks/' + this.state._id, {
+                type: 'put',
+                data: JSON.stringify( _data ),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {                     
+                    that.props.action(data)                    
+                }
+            });
+
+        }
     }
 
     render(){
@@ -33,10 +56,10 @@ class TaskListItem extends React.Component{
         return (
             <div id={this.props.tID} className="row">
                 <div className="col-sm-1 col-md-1 col-lg-1">                        
-                    <input className="btn-right" type="checkbox"></input>
+                    <input className="btn-right" type="checkbox" checked={this.state.done} onChange={this.handleTaskStatusChange.bind(this)}></input>
                 </div>
                 <div className="col-sm-9 col-md-9 col-lg-9">                        
-                    <input className="input-title" type="text" id={'task' + this.state._id} placeholder="Task details"></input>
+                    <input className="input-title" type="text" placeholder="Task details" defaultValue={this.state.name}></input>
                 </div>
                 <div className="col-sm-2 col-md-2 col-lg-2">                        
                     <button className="btn btn-round">X</button>
