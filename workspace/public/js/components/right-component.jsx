@@ -40,6 +40,7 @@ class Right extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        $('#input_task_name_container').hide()
         this.setState({
             title: nextProps.title,
             description: nextProps.description,
@@ -50,8 +51,8 @@ class Right extends React.Component {
         });        
     }
 
-    componentWillMount () {
-                     
+    componentDidMount () {
+        $('#input_task_name_container').hide()
     }
 
     handleCardTitleOnBlur(event){
@@ -164,7 +165,28 @@ class Right extends React.Component {
                 }
             });
         }                        
-    }   
+    } 
+
+    handleCardAddTask(event){
+        var that = this;
+        var _data = {
+            "taskname": event.target.value
+        }
+
+        if(localStorage.getItem('currentCardID') != ''){
+            $.ajax('http://localhost:4000/api/cards/' + localStorage.getItem('currentCardID') + '/tasks', {
+                type: 'post',
+                data: JSON.stringify( _data ),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) { 
+                    console.log('post data: ' + JSON.stringify(data))
+                    that.setState(data)
+                    that.props.action(data)
+                }
+            });
+        }                        
+    }  
 
     deleteCard(event){
         var that = this;
@@ -186,6 +208,10 @@ class Right extends React.Component {
                 }
             });
         }            
+    }
+
+    hideOrShowNewTaskCreator(event){
+        $('#input_task_name_container').toggle()
     }  
 
     render() {
@@ -232,9 +258,15 @@ class Right extends React.Component {
                     <div className="row">
                         <div className="col-sm-12 col-md-12 col-lg-12">
                             <label> Task List: </label>
-                            <button className="btn btn-right">+</button>                        
+                            <button onClick={this.hideOrShowNewTaskCreator.bind(this)} className="btn btn-right">+</button>                        
                         </div>
                     </div>
+                    <div id="input_task_name_container" className="row">                        
+                        <div className="col-sm-12 col-md-12 col-lg-12">                        
+                            <input id="input_task_name" className="input-title" type="text" placeholder="Enter new task here" onBlur={this.handleCardAddTask.bind(this)}></input>
+                        </div>                        
+                    </div>
+                    <br/>
                     {this.state.tasks.map((task, i) => <TaskListItem key = {'t' + i} action={this.props.action} name = {task.name} 
                      done = {task.done} tID = {task._id}/>)}
                     <br/>   
