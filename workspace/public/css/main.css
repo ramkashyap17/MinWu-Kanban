@@ -15,6 +15,12 @@
     color: black;
 }
 
+.homeSubmenuItemSelected {
+    background: white;
+    color: black;   
+    cursor: pointer;
+}
+
 .homeSubmenuItem:hover {
     background: white;
     color: black;   

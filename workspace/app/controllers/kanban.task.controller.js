@@ -6,6 +6,7 @@ var create = function(req, res) {
 			res.status(404).json({error: err.message});
 		} else {
 			if (card !== null) {
+				console.log('This is taskname: ' + req.body.taskname)
 				card.addTask(req.body.taskname);
 
 				card.save(function(err) {
