@@ -33,6 +33,7 @@ class Right extends React.Component {
         }
 
         console.log('This is task count: ' + that.state.__v)        
+        console.log('This is tasks: ' + JSON.stringify(that.state.tasks))
     }
 
     componentWillReceiveProps(nextProps) {
@@ -41,7 +42,7 @@ class Right extends React.Component {
             description: nextProps.description,
             status: nextProps.status,
             _id: nextProps.uid,
-            __v: nextProps.tasks.count, 
+            __v: nextProps.tasks.length, 
             tasks: nextProps.tasks
         });        
     }
@@ -182,7 +183,8 @@ class Right extends React.Component {
                             <button className="btn btn-right">+</button>                        
                         </div>
                     </div>
-                    <TaskListItem/>                
+                    {this.state.tasks.map((task, i) => <TaskListItem key = {'t' + i} action={this.props.action} name = {task.name} 
+                     done = {task.done} tID = {task._id}/>)}
                     <br/>   
                 </div>          
             </div>      
