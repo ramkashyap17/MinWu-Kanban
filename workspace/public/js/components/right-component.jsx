@@ -3,22 +3,22 @@ import TaskListItem from './task-listitem.jsx'
 
 class Right extends React.Component {
     constructor(props) {
-        super(props);                
-    }
-
-    componentWillMount () {
-                
-    }
-
-    updateDatabase(event){
-        console.log('This is title: ' + event.target.value)
+        super(props);
+        this.state = {
+            title: this.props.title,
+            description: this.props.description,
+            status: this.props.status,
+            _id: this.props.uid,
+            __v: this.props.tasks.length, 
+            tasks: this.props.tasks
+        }                
     }
 
     setValues(that){
-        $('#card_title').val(that.props.title)
-        $('#card_description').val(that.props.description)
+        $('#card_title').val(that.state.title)
+        $('#card_description').val(that.state.description)
 
-        switch(that.props.status){
+        switch(that.state.status){
             case 'todo':
                 $("div.dropdown select").val("todo");                
                 break;
@@ -31,13 +31,114 @@ class Right extends React.Component {
                 $("div.dropdown select").val("in-progress");
                 break;
         }
+
+        console.log('This is task count: ' + that.state.__v)        
     }
 
-    render() {
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            title: nextProps.title,
+            description: nextProps.description,
+            status: nextProps.status,
+            _id: nextProps.uid,
+            __v: nextProps.tasks.count, 
+            tasks: nextProps.tasks
+        });        
+    }
+
+    componentWillMount () {
+                     
+    }
+
+    handleCardTitleOnBlur(event){
+        var that = this;
+        var _data = {}
+
+        if(localStorage.getItem('currentCardID')){
+            _data._id = localStorage.getItem('currentCardID')
+            
+            _data.title = event.target.value            
+            _data.description = this.state.description            
+            _data.status = this.state.status                
+
+            $('#card_title').val(event.target.value)
+            $('#card_description').val(that.state.description)        
+
+            $.ajax('http://localhost:4000/api/cards/' + _data._id, {
+                type: 'put',
+                data: JSON.stringify( _data ),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) { 
+                    console.log('post data: ' + JSON.stringify(data))
+                    that.setState(data)
+                    that.props.action(data)
+                }
+            });
+
+        }                        
+    }
+
+    handleCardDescriptionOnBlur(event){
+        var _data = {}
         var that = this;
 
-        console.log('This is this.props.title: ' + this.props.title)                
-        this.setValues(that)
+        if(localStorage.getItem('currentCardID')){
+            _data._id = localStorage.getItem('currentCardID')
+            _data.title = this.state.title            
+            _data.status = this.state.status
+            _data.description = event.target.value            
+
+            $('#card_title').val(this.state.title)
+            $('#card_description').val(event.target.value)                     
+
+            $.ajax('http://localhost:4000/api/cards/'+ _data._id, {
+                type: 'put',
+                data: JSON.stringify( _data ),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) { 
+                    console.log('post data: ' + JSON.stringify(data))
+                    that.setState(data)
+                    that.props.action(data)                    
+                }
+            });
+
+        }                        
+    }  
+
+    handleCardStatusChange(event){
+        var that = this;
+        var _data = {}
+
+        if(localStorage.getItem('currentCardID')){
+            _data._id = localStorage.getItem('currentCardID')
+            
+            _data.title = this.state.title            
+            _data.description = this.state.description            
+            _data.status = event.target.value                
+
+            $('#card_title').val(event.target.value)
+            $('#card_description').val(that.state.description)        
+
+            $.ajax('http://localhost:4000/api/cards/' + _data._id, {
+                type: 'put',
+                data: JSON.stringify( _data ),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) { 
+                    console.log('post data: ' + JSON.stringify(data))
+                    that.setState(data)
+                    that.props.action(data)
+                }
+            });
+        }                        
+    }  
+
+    render() {
+        var that = this; 
+
+        this.setValues(that)       
         
         return (
             <div className ="right">           
@@ -52,13 +153,13 @@ class Right extends React.Component {
                         <div className="col-sm-8 col-md-8 col-lg-8">
                             <label> Name:</label>
                             <br/>
-                            <input className="input-title" id="card_title" type="text" placeholder="Card name" onChange={this.updateDatabase.bind(this)}></input>
+                            <input className="input-title" id="card_title" type="text" placeholder="Card name" onBlur={this.handleCardTitleOnBlur.bind(this)}></input>
                         </div>
                         <div className="col-sm-4 col-md-4 col-lg-4">
                             <label> Status: </label>
                             <br/>
                             <div className="dropdown">                                
-                                <select id="card_status">
+                                <select onChange={this.handleCardStatusChange.bind(this)} id="card_status">
                                   <option value="todo">Todo</option>
                                   <option value="done">Done</option>
                                   <option value="in-progress">In Progress</option>                                  
@@ -71,7 +172,7 @@ class Right extends React.Component {
                         <div className="col-sm-12 col-md-12 col-lg-12">
                             <label> Description: </label>
                             <br/>
-                            <textarea className="input-title" id="card_description"  placeholder="Enter the description here" ></textarea>
+                            <textarea className="input-title" id="card_description" onBlur={this.handleCardDescriptionOnBlur.bind(this)} placeholder="Enter the description here" ></textarea>
                         </div>
                     </div>
                     <br/>

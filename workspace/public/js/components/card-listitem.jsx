@@ -30,7 +30,7 @@ class CardListItem extends React.Component{
                 <a>                         
                     <div className="row">
                         <div className="col-sm-10 col-md-10 col-lg-10">
-                            <p>{this.props.title}</p>
+                            <p id = {'p' + this.props.uID}>{this.props.title}</p>
                         </div>
                         <div className="col-sm-2 col-md-2 col-lg-2">
                             <button className="btn btn-round">{this.props.tCount}</button>

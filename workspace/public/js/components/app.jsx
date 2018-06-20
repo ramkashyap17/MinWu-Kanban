@@ -11,7 +11,7 @@ class App extends React.Component {
             "description": "...",
             "title": "Loading....",
             "__v": 0,
-            "tasks": []            
+            "tasks": []          
         }
 	}
 
@@ -25,12 +25,17 @@ class App extends React.Component {
         }			
 	}
 
+	refreshCardsList(data){
+        console.log('Entered refreshCardsList: ' + JSON.stringify(data))
+		this.setState(data)
+	}
+
    	render() {
       return (
          <div>
          	<h1>Kanban Board</h1>
             <Left action={this.updateSelectedUID.bind(this)}/>
-            <Right uid={this.state._id} status={this.state.status} title={this.state.title} description={this.state.description}/>
+            <Right uid={this.state._id} status={this.state.status} title={this.state.title} description={this.state.description} tasks={this.state.tasks} action={this.refreshCardsList.bind(this)}/>
          </div>
       );
    	}
