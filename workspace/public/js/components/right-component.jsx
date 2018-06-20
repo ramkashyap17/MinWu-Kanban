@@ -32,6 +32,8 @@ class Right extends React.Component {
                 break;
         }
 
+        $('#' + localStorage.getItem('currentCardID')).addClass('homeSubmenuItemSelected')
+
         console.log('This is task count: ' + that.state.__v)        
         console.log('This is tasks: ' + JSON.stringify(that.state.tasks))
     }
@@ -55,7 +57,9 @@ class Right extends React.Component {
         var that = this;
         var _data = {}
 
-        if(localStorage.getItem('currentCardID')){
+        console.log('This is currentCardID: ' + localStorage.getItem('currentCardID'))
+
+        if(localStorage.getItem('currentCardID') != 'null'){
             _data._id = localStorage.getItem('currentCardID')
             
             _data.title = event.target.value            
@@ -77,6 +81,27 @@ class Right extends React.Component {
                 }
             });
 
+        }
+        else{
+            console.log('Entered inside add card action')
+            var _data = {}
+
+            _data.title = $('#card_title').val()            
+            _data.description = $('#card_description').val()
+            _data.status = $('#card_status').val()
+
+            $.ajax('http://localhost:4000/api/cards/', {
+                type: 'post',
+                data: JSON.stringify( _data ),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {                                                                            
+                    that.setState(data)
+                    console.log('This is data/_id: ' + data._id)
+                    localStorage.setItem('currentCardID', data._id)                    
+                    that.props.action(data)                                          
+                }
+            });
         }                        
     }
 
@@ -131,10 +156,14 @@ class Right extends React.Component {
                     console.log('post data: ' + JSON.stringify(data))
                     that.setState(data)
                     that.props.action(data)
+
+                    if(localStorage.getItem('currentCardID')){
+                        $('#' + localStorage.getItem('currentCardID')).removeClass('homeSubmenuItemSelected')                        
+                    }
                 }
             });
         }                        
-    }  
+    }     
 
     render() {
         var that = this; 

@@ -7,9 +7,9 @@ class App extends React.Component {
 		super()
 		this.state = {            
             "_id": "1",
-            "status": "done",
-            "description": "...",
-            "title": "Loading....",
+            "status": "todo",
+            "description": "",
+            "title": "",
             "__v": 0,
             "tasks": []          
         }
@@ -22,11 +22,22 @@ class App extends React.Component {
                 console.log('This is result: ' + JSON.stringify(result))           
                 that.setState(result)            
             });
+        }
+        else{
+            console.log('Entered inside clear')
+            this.setState({            
+                "_id": "1",
+                "status": "todo",
+                "description": "",
+                "title": "",
+                "__v": 0,
+                "tasks": []          
+            })
         }			
 	}
 
 	refreshCardsList(data){
-        console.log('Entered refreshCardsList: ' + JSON.stringify(data))
+        console.log('Entered refreshCardsList: ' + JSON.stringify(data))        
 		this.setState(data)
 	}
 

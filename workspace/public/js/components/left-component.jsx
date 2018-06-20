@@ -4,10 +4,20 @@ import Todo from './todo-cards.jsx'
 import InProgress from './inprogress-cards.jsx'
 
 class Left extends React.Component {
+   constructor(props){
+      super(props)
+   }
+   clearForm(){
+      if(localStorage.getItem('currentCardID')){
+         $('#' + localStorage.getItem('currentCardID')).removeClass('homeSubmenuItemSelected')                        
+      }      
+      localStorage.setItem('currentCardID', null)
+      this.props.action(null)
+   }
    render() {
       return (
          <div className="container left">			
-            <button className="btn btn-right" onClick={this.getComponent}>CREATE</button>
+            <button className="btn btn-right" onClick={this.clearForm.bind(this)}>CREATE</button>
             <br/>
             <br/>	
             <Done action={this.props.action}/>  
