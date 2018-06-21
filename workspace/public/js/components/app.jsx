@@ -19,11 +19,15 @@ class App extends React.Component {
 	}
 
     componentDidMount(){        
-        
+        if(localStorage.getItem('currentCardID') == ''){
+            $('.sweet-loading').hide();
+        }
     }
 
     componentDidUpdate () {
-           
+        if(localStorage.getItem('currentCardID') == ''){
+            $('.sweet-loading').hide();
+        }
     }
 
 	updateSelectedUID(id){

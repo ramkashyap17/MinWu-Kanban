@@ -11,7 +11,7 @@ class Left extends React.Component {
       if(localStorage.getItem('currentCardID') != ''){
          $('#' + localStorage.getItem('currentCardID')).removeClass('homeSubmenuItemSelected')                        
       }      
-      localStorage.setItem('currentCardID', '')
+      localStorage.setItem('currentCardID', '')      
       this.props.action(null)
    }
    render() {

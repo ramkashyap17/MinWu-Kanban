@@ -187,6 +187,7 @@ class Right extends React.Component {
                     console.log('post data: ' + JSON.stringify(data))
                     that.setState(data)
                     that.props.action(data)
+                    $('#input_task_name').val('')
                 }
             });
         }                        
