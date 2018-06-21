@@ -23,6 +23,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
+    "react-spinners": "^0.3.2",
     "requirejs": "^2.3.5"
   },
   "devDependencies": {

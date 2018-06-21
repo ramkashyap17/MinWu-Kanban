@@ -24,7 +24,11 @@ class Todo extends React.Component {
         var that = this; 
         $.get("http://localhost:4000/api/cards?status=todo", function(result, status){
             if(result.length > 0){
+                $('#todoSubmenu').hide()
                 that.setState({data: result})
+            }
+            else{
+                $('#todoSubmenu').show()
             }            
         });
     }
@@ -33,7 +37,11 @@ class Todo extends React.Component {
         var that = this; 
         $.get("http://localhost:4000/api/cards?status=todo", function(result, status){
             if(result.length > 0){
+                $('#todoSubmenu').hide()
                 that.setState({data: result})
+            }
+            else{
+                $('#todoSubmenu').show()
             }            
         });
     }
@@ -42,7 +50,16 @@ class Todo extends React.Component {
         return (
             <div className="active mainMenu">
                 <h5>Todo</h5>
-                <ul className="list-unstyled" id="todoSubmenu">
+                <ul className="list-unstyled" >
+                    <li className="homeSubmenuItem" id="todoSubmenu">
+                        <a>                         
+                            <div className="row">
+                                <div className="col-sm-10 col-md-10 col-lg-10">
+                                    <p>Nothing Here.</p>
+                                </div>                                
+                            </div>                          
+                        </a>
+                    </li>
                     {this.state.data.map((card, i) => <CardListItem action={this.props.action} key = {i} title = {card.title} 
                      tCount = {card.__v} uID = {card._id}/>)}                                                                                
                 </ul>                

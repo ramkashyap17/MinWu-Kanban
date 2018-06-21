@@ -55,6 +55,10 @@ class Right extends React.Component {
         $('#input_task_name_container').hide()
     }
 
+    componentDidUpdate () {
+        
+    }
+
     handleCardTitleOnBlur(event){
         var that = this;
         var _data = {}
