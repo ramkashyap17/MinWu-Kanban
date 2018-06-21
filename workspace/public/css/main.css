@@ -15,10 +15,10 @@
 }
 
 .homeSubmenuItem {        
-    margin-left: 3em;
+    margin-left: 1em;
     margin-top: 20px;
-    margin-right: 10px;
-    padding: 6px 12px 6px 12px;    
+    margin-right: 0px;
+    padding: 14px 40px 10px 19px    
     color: black;
 }
 
